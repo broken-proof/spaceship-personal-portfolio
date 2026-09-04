@@ -87,7 +87,7 @@
 
   background: rgba(255, 175, 0, 0.2);
   opacity: 0.5;
-  animation: flicker 1s infinite;
+  animation: flicker 10s infinite;
   pointer-events: none;
 
   border-radius: 20px;
@@ -136,7 +136,7 @@
   animation: screen-scan 6s linear infinite;
 }
 
-.scan_effectb {
+/* .scan_effectb {
   width: 100%;
   height: 50px;
   position: absolute;
@@ -151,7 +151,7 @@
       rgba(255, 175, 0, 0.1) 100%);
 
   animation: screen-scan 3s linear infinite;
-}
+} */
 
 @keyframes screen-scan {
 
@@ -164,28 +164,49 @@
   }
 }
 
-.topic_navigation {
+.terminal {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   gap: 0.8rem;
   margin-bottom: 2rem;
-}
 
-.topic_navigation button {
-  background: transparent;
-  border: none;
-  color: inherit;
-  font-family: inherit;
-  cursor: pointer;
+  color: rgb(255, 255, 177);
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 0 0 5px rgba(255, 251, 0, 0.5), 0 0 10px rgba(255, 238, 0, 0.3);
+
   transition: all 0.2s ease;
   font-size: 1.2rem;
+  font-weight: 600;
 
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Hide the scroll Wheel for different browsers */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
-.topic_navigation button:hover,
-.topic_navigation button.active {
-  color: white;
-  text-shadow: 0 0 8px rgba(254, 220, 154, 0.75);
+.output_line {
+  white-space: pre-wrap;
+}
+
+.current_input {
+  background: transparent;
+  border: none;
+  color: rgb(255, 255, 177);
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 0 0 5px rgba(255, 251, 0, 0.5), 0 0 10px rgba(255, 238, 0, 0.3);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.current_input:focus {
+  outline: none;
 }

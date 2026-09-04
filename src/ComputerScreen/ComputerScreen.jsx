@@ -1,18 +1,94 @@
 import './ComputerScreen.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import monitorBorder from '../assets/monitorbackground.png'
-import About from './About';
-import Projects from './Projects';
-import Experience from './Experience';
-import Resume from './Resume';
-import Contact from './Contact';
+
 
 function ComputerScreen() {
 
-  const [topic, setTopic] = useState('default');
+  //Tracks history of console
+  const [history, setHistory] = useState([{ type: 'output', content: "Welcome to shivam_os v1.0. Type 'help' to see available commands." }]);
 
-  const goHomePage = () => setTopic('default');
+  //Tracks current input
+  const [input, setInput] = useState('');
 
+  //Variable for final returned history
+  let newHistory = [];
+
+  //Function to handle user inputs for input field
+  const handleInput = (element) => {
+    if (element.key === "Enter") {
+      const fixedInput = input.trim().toLowerCase();
+
+      if (fixedInput === 'clear') {
+        newHistory = [{ type: 'output', content: "Welcome to shivam_os v1.0. Type 'help' to see available commands." }]
+      }
+
+      else if (!fixedInput) {
+        //Add to history always
+        //Always add input to new History first
+        for (const command of history) {
+          newHistory.push(command)
+        }
+        newHistory.push({ type: 'command', content: fixedInput });
+
+      }
+      else {
+        //Always add input to new History first
+        for (const command of history) {
+          newHistory.push(command)
+        }
+        newHistory.push({ type: 'command', content: fixedInput });
+
+        //Process the non-empty input
+        const output = processCommand(fixedInput);
+
+        //If a proper output was generated, then add to the history
+        if (output) {
+          newHistory.push({ type: 'output', content: output })
+        }
+      }
+
+      //Update history and input usestates
+      setHistory(newHistory);
+      setInput("");
+    }
+
+    //Function to process commands and  return string
+    function processCommand(input) {
+
+      switch (input) {
+        case 'help':
+          return <div style={{ whiteSpace: "pre-wrap" }}>
+            AVAILABLE COMMANDS:<br></br>
+            help      -Display this message<br></br>
+            whoami    -Brief Introduction and bio<br></br>
+            resume    -Download my resume<br></br>
+            clear     -Clear Screen
+          </div>
+
+        case 'whoami':
+          return <div>
+            Name: Shivam Murawala<br></br>
+            Status: High School Senior at Woburn Collegiate Institute<br></br>
+            Interests: Math Problemsolving, Business/DECA, Programming, Art, NBA/Basketball, Distance Running<br></br>
+
+          </div>
+
+        case 'resume':
+
+          return <div>
+            Fetching file: Shivam_Murawala_Highschool_Dev.pdf... <br></br>
+            Initiating Download sequence... <br></br>
+            <a rel="noopener noreferrer" target="_blank" href="./resume.pdf" style={{ color: "rgb(255, 255, 177)" }}>Click to Download</a>
+          </div>
+
+        default:
+          return <div>
+            Command Not Found {":("}
+          </div>
+      }
+    }
+  }
   return (
 
     <div className="monitor">
@@ -20,29 +96,38 @@ function ComputerScreen() {
 
         <div className="crt">
 
-          {topic === 'default' && (<div className="mainMenu">
+          <div className="terminal">
 
-            <h1 style={{ paddingBottom: "1rem" }}>My Portfolio</h1>
-            <nav className="topic_navigation">
-              <button onClick={() => setTopic("about")}>&gt; ABOUT</button>
-              <button onClick={() => setTopic("projects")}>&gt;  PROJECTS</button>
-              <button onClick={() => setTopic("experience")}>&gt; EXPERIENCE</button>
-              <button onClick={() => setTopic("resume")}>&gt; RESUME</button>
-              <button onClick={() => setTopic("contact")}>&gt; CONTACT</button>
-            </nav>
-          </div>)}
+            {/* Render all lines within the history */}
+            {
+              history.map((line, index) => (
+                <div key={index} >
+                  {
+                    line.type === 'command' ? (
+                      // Output with prefix if it is a command
+                      <span className='output_line'><span className='output_line'>guest@shivam-os:$ </span>{line.content} </span>
+                    ) : (
+                      // Output standard content if not a command
+                      <span> {line.content}</span>
+                    )
+                  }
+                </div>
 
-          {topic === 'about' && <About onBack={goHomePage} />}
-          {topic === 'projects' && <Projects onBack={goHomePage} />}
-          {topic === 'experience' && <Experience onBack={goHomePage} />}
-          {topic === 'resume' && <Resume onBack={goHomePage} />}
-          {topic === 'contact' && <Contact onBack={goHomePage} />}
+              ))
+            }
+
+            {/* Render Active Input  */}
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span className='output_line'>guest@shivam-os:$ </span>
+              <input onKeyDown={handleInput} className="current_input" type="text" value={input} autoFocus spellCheck="false" autoComplete="off" onChange={(element) => setInput(element.target.value)}></input>
+            </div>
+
+          </div>
 
         </div>
 
 
 
-        <div className="scan_effectb"></div>
         <div className="scan_effecta"></div>
       </div>
 
