@@ -1,3 +1,40 @@
+/* Variables based on theme */
+.glass[data-theme="amber"] {
+  --text-color: rgb(255, 255, 177);
+  --shadow-color: rgb(109, 109, 17);
+  --gradient-a: rgba(255, 175, 0, 0);
+  --gradient-b: rgba(255, 175, 0, 0.05);
+  --gradient-c: rgba(255, 175, 0, 0.1);
+  --fading-color: rgba(255, 175, 0, 0.2);
+}
+
+.glass[data-theme="phosphor"] {
+  --text-color: rgb(183, 255, 177);
+  --shadow-color: rgb(17, 109, 25);
+  --gradient-a: rgba(0, 255, 34, 0);
+  --gradient-b: rgba(21, 255, 0, 0.05);
+  --gradient-c: rgba(21, 255, 0, 0.1);
+  --fading-color: rgba(9, 255, 0, 0.2);
+}
+
+.glass[data-theme="cyberpunk"] {
+  --text-color: rgb(0, 247, 255);
+  --shadow-color: rgb(17, 103, 109);
+  --gradient-a: rgba(0, 255, 213, 0);
+  --gradient-b: rgba(0, 255, 242, 0.05);
+  --gradient-c: rgba(0, 217, 255, 0.1);
+  --fading-color: rgba(0, 225, 255, 0.2);
+}
+
+.glass[data-theme="synthwave"] {
+  --text-color: rgb(255, 168, 233);
+  --shadow-color: rgb(109, 17, 109);
+  --gradient-a: rgba(234, 0, 255, 0);
+  --gradient-b: rgba(255, 0, 255, 0.05);
+  --gradient-c: rgba(255, 0, 191, 0.1);
+  --fading-color: rgba(255, 0, 242, 0.2);
+}
+
 .monitor {
   position: absolute;
   top: 50%;
@@ -19,7 +56,6 @@
   box-shadow: 0 20px 50px rgb(89, 80, 68);
 
   font-family: 'Courier New', Courier, monospace;
-  color: rgb(255, 220, 154);
 }
 
 .glass {
@@ -85,7 +121,10 @@
   bottom: 0;
   right: 0;
 
-  background: rgba(255, 175, 0, 0.2);
+  /* theme: color fading color */
+  background: var(--fading-color);
+
+
   opacity: 0.5;
   animation: flicker 10s infinite;
   pointer-events: none;
@@ -127,31 +166,14 @@
   pointer-events: none;
 
 
-
+  /* theme: scan effect movement */
   background: linear-gradient(180deg,
-      rgba(255, 175, 0, 0) 0%,
-      rgba(255, 175, 0, 0.05) 50%,
-      rgba(255, 175, 0, 0.1) 100%);
+      var(--gradient-a) 0%,
+      var(--gradient-b) 50%,
+      var(--gradient-c) 100%);
 
   animation: screen-scan 6s linear infinite;
 }
-
-/* .scan_effectb {
-  width: 100%;
-  height: 50px;
-  position: absolute;
-  z-index: 5;
-  pointer-events: none;
-
-
-
-  background: linear-gradient(180deg,
-      rgba(255, 175, 0, 0) 0%,
-      rgba(120, 84, 8, 0.05) 50%,
-      rgba(255, 175, 0, 0.1) 100%);
-
-  animation: screen-scan 3s linear infinite;
-} */
 
 @keyframes screen-scan {
 
@@ -171,13 +193,16 @@
 
   gap: 0.8rem;
   margin-bottom: 2rem;
-
-  color: rgb(255, 255, 177);
   font-family: 'Courier New', Courier, monospace;
-  text-shadow: 0 0 5px rgba(255, 251, 0, 0.5), 0 0 10px rgba(255, 238, 0, 0.3);
+
+  /* theme: text color */
+  color: var(--text-color);
+
+  /* theme: shadow color */
+  text-shadow: 0 0 5px var(--shadow-color), 0 0 10px var(--shadow-color);
 
   transition: all 0.2s ease;
-  font-size: 1.2rem;
+  font-size: 0.9 rem;
   font-weight: 550;
 
   -webkit-font-smoothing: none;
@@ -200,10 +225,10 @@
 .current_input {
   background: transparent;
   border: none;
-  color: rgb(255, 255, 177);
+  color: inherit;
   font-family: 'Courier New', Courier, monospace;
-  text-shadow: 0 0 5px rgba(255, 251, 0, 0.5), 0 0 10px rgba(255, 238, 0, 0.3);
-  font-size: 1.2rem;
+  text-shadow: inherit;
+  font-size: inherit;
   font-weight: 550;
 }
 
