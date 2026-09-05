@@ -100,7 +100,7 @@ function ComputerScreen() {
             whoami    -Brief Introduction and bio<br></br>
             resume    -Download my resume<br></br>
             contact   -Get Contact Info <br></br>
-            theme     -Modify Terminal Color Theme
+            theme     -Modify Terminal Color Theme <br></br>
             clear     -Clear Screen
           </div>
 
@@ -117,7 +117,7 @@ function ComputerScreen() {
           return <div>
             {"[ OK ]"} Fetching file: Shivam_Murawala_Highschool_Dev.pdf... <br></br>
             {"[ OK ]"} Initiating Download sequence... <br></br>
-            <a rel="noopener noreferrer" target="_blank" href="./resume.pdf" style={{ color: "rgb(255, 255, 177)" }}>Click to Download</a>
+            <a rel="noopener noreferrer" target="_blank" href="./resume.pdf" style={{ color: "inherit" }}>Click to Download</a>
           </div>
 
         case 'contact':
